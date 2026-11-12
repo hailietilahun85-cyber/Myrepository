@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eeeeee;
+        }
+
+        .register-box {
+            width: 92%;
+            max-width: 450px;
+            margin: 40px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #111111;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #aaaaaa;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border: 2px solid blue;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background: blue;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkblue;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: blue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-box">
+
+        <h1>Student Registration</h1>
+
+        <form id="registerForm">
+
+            <label>Full Name</label>
+            <input 
+                type="text" 
+                id="fullName"
+                placeholder="Enter your full name"
+                required
+            >
+
+            <label>Student ID</label>
+            <input 
+                type="text" 
+                id="studentId"
+                placeholder="Enter student ID"
+                required
+            >
+
+            <label>Email</label>
+            <input 
+                type="email" 
+                id="email"
+                placeholder="Enter email"
+                required
+            >
+
+            <label>Phone Number</label>
+            <input 
+                type="tel" 
+                id="phone"
+                placeholder="Enter phone number"
+                required
+            >
+
+            <label>Department</label>
+            <select id="department" required>
+                <option value="">Select Department</option>
+                <option value="Computer Science">
+                    Computer Science
+                </option>
+                <option value="Information Technology">
+                    Information Technology
+                </option>
+                <option value="Software Engineering">
+                    Software Engineering
+                </option>
+                <option value="Information Systems">
+                    Information Systems
+                </option>
+            </select>
+
+            <label>Year Level</label>
+            <select id="year" required>
+                <option value="">Select Year</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+            </select>
+
+            <label>Password</label>
+            <input 
+                type="password" 
+                id="password"
+                placeholder="Create password"
+                required
+            >
+
+            <label>Confirm Password</label>
+            <input 
+                type="password" 
+                id="confirmPassword"
+                placeholder="Confirm password"
+                required
+            >
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="index.html">Login</a>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document.getElementById("registerForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            let fullName =
+                document.getElementById("fullName").value;
+
+            let studentId =
+                document.getElementById("studentId").value;
+
+            let email =
+                document.getElementById("email").value;
+
+            let phone =
+                document.getElementById("phone").value;
+
+            let department =
+                document.getElementById("department").value;
+
+            let year =
+                document.getElementById("year").value;
+
+            let password =
+                document.getElementById("password").value;
+
+            let confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            let message =
+                document.getElementById("message");
+
+
+            // Check password
+            if (password !== confirmPassword) {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Passwords do not match!";
+
+                return;
+            }
+
+
+            // Check password length
+            if (password.length < 6) {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Password must be at least 6 characters.";
+
+                return;
+            }
+
+
+            // Save student information temporarily
+            let student = {
+
+                fullName: fullName,
+                studentId: studentId,
+                email: email,
+                phone: phone,
+                department: department,
+                year: year,
+                password: password
+
+            };
+
+
+            // Store in browser
+            localStorage.setItem(
+                "student",
+                JSON.stringify(student)
+            );
+
+
+            message.style.color = "green";
+
+            message.innerHTML =
+                "Registration successful!";
+
+
+            // Go to login page after 1 second
+            setTimeout(function() {
+
+                window.location.href = "index.html";
+
+            }, 1000);
+
+        });
+
+    </script>
+
+</body>
+</html>

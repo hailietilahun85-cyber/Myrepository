@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eeeeee;
+        }
+
+        .login-box {
+            width: 92%;
+            max-width: 450px;
+            margin: 80px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            font-size: 16px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background: blue;
+            color: white;
+            font-size: 18px;
+        }
+
+        .register {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .register a {
+            color: blue;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        #message {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="login-box">
+
+    <h1>Student Login</h1>
+
+
+    <form id="loginForm">
+
+        <label>Student ID</label>
+
+        <input
+            type="text"
+            id="studentId"
+            placeholder="Enter Student ID"
+            required
+        >
+
+
+        <label>Password</label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            required
+        >
+
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+
+    <p id="message"></p>
+
+
+    <div class="register">
+
+        Don't have an account?
+
+        <a href="register.html">
+            Create Account
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    let studentId =
+        document.getElementById("studentId").value;
+
+    let password =
+        document.getElementById("password").value;
+
+
+    // Get registered student
+    let data =
+        localStorage.getItem("student");
+
+
+    if (!data) {
+
+        document.getElementById("message").style.color =
+            "red";
+
+        document.getElementById("message").innerHTML =
+            "No account found. Please register first.";
+
+        return;
+    }
+
+
+    let student =
+        JSON.parse(data);
+
+
+    // Check ID and password
+    if (
+        student.studentId === studentId &&
+        student.password === password
+    ) {
+
+        document.getElementById("message").style.color =
+            "green";
+
+        document.getElementById("message").innerHTML =
+            "Login successful!";
+
+
+        // Go to dashboard
+        setTimeout(function() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }, 800);
+
+    }
+
+    else {
+
+        document.getElementById("message").style.color =
+            "red";
+
+        document.getElementById("message").innerHTML =
+            "Incorrect Student ID or Password.";
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>
